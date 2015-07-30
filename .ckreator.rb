@@ -1,26 +1,30 @@
 require 'colorize'
  
+
+flags = {'-e' => 'easy', '-m' => 'moderate', '-h' => 'hard'} 
 # Now we'll create a new folder for a new challenge:
-nu = ARGV[0]
+difficulty = flags[ARGV[0]]
+nu = ARGV[1]
 # Exit if file exists
 def stop_it
   puts "Sorry, this file already exists. Check for typos!"
   exit
 end
 public :stop_it
-stop_it if File.exist?(nu)
+puts "#{difficulty}/#{nu}"
+stop_it if File.exist?("#{difficulty}/#{nu}")
 print "Creating folder:  ".green
-`mkdir #{nu}`
+`mkdir #{difficulty}/#{nu}`
 20.times {print "=="; sleep 0.001}
 puts
-ruby = File.expand_path "./#{nu}/#{nu}.rb"
-txt = File.expand_path "./#{nu}/#{nu}.txt"
+ruby = File.expand_path "#{difficulty}/#{nu}/#{nu}.rb"
+txt = File.expand_path "#{difficulty}/#{nu}/#{nu}.txt"
 print "Uploading files:  ".green
 `cp .template/solution.rb #{ruby}`
-`cp .template/test.txt #{txt} && touch ./#{nu}/NOT_DONE`
-`touch ./#{nu}/run`
-` echo "ruby #{ruby} #{txt}" > ./#{nu}/run`  
-`chmod +x ./#{nu}/run`
+`cp .template/test.txt #{txt} && touch #{difficulty}/#{nu}/NOT_DONE`
+#`touch ./#{nu}/run`
+`echo "ruby #{ruby} #{txt}" > #{difficulty}/#{nu}/run`  
+`chmod +x #{difficulty}/#{nu}/run`
 20.times {print "=="; sleep 0.001}
 puts
 puts "DONE!".red
