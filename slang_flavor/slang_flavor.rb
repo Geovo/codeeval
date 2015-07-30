@@ -1,24 +1,18 @@
-ar = ['placeholder', ', yeah!', ', this is crazy, I tell ya.', ', can U believe this?', ', eh?', ', aw yea.', ', yo.', '? No way!', '. Awesome!']
+ar = [', yeah!', ', this is crazy, I tell ya.', ', can U believe this?', ', eh?', ', aw yea.', ', yo.', '? No way!', '. Awesome!']
 
-times_changed = -1
-
+contr = 1
+ar_num = 0
 File.open(ARGV[0]).each_line do |line|
-  line = line.chomp.gsub(/[\.\!\?]/){|m| "#{m}||"}.split("||")
   nu = []
-  other = false
-#  line.map {|x| p x}
-  line.map! do |s|
-    times_changed += 1
-    if times_changed % 2 == 0
-      other = false
-      puts t = (times_changed % 8) 
-      nu << s[0..-2] + ar[t + 1]
+  line = line.chomp.gsub(/[\.\!\?]/){|m| "#{m}||"}.split("||")
+  line.map! do |s| 
+    if contr.even? 
+      nu << s[0..-2] + ar[ar_num % 8]
+      ar_num += 1
     else
-      other = true
       nu << s
     end
-    puts times_changed
-#    times_changed += 1
+    contr += 1
   end
-  p nu
+  puts nu.join('')
 end
