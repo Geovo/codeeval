@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ARGV1=$1
+echo "Creating new challenge $ARGV1"
+ruby .ckreator.rb $ARGV1
